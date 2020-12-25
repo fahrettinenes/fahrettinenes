@@ -10,4 +10,3 @@ I have an e-Commerce site where I code my own Digital Game Plugins and sell them
 
 ## Join to my plugin server
 ![Discord Shield](https://discord.com/api/guilds/785185212770287616/widget.json)
-<img src="https://discord.com/api/guilds/785185212770287616/widget.json" alt="Discord Shield"/>

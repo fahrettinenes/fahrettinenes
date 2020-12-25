@@ -9,4 +9,4 @@ I have an e-Commerce site where I code my own Digital Game Plugins and sell them
 [Cyber Plugins](https://cyberplugins.com/)
 
 ## Join to my plugin server
-[Discord Banner 4](https://discordapp.com/api/guilds/785185212770287616/widget.png?style=banner4)
+![](https://discord.com/api/guilds/785185212770287616/widget.json)

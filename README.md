@@ -14,4 +14,3 @@ I have an e-Commerce site where I code my own Digital Game Plugins and sell them
 
 ## Join to my server
 ##### [Click and join](https://discord.gg/npGeCBCYHx)
-![Discord Banner 4](https://discordapp.com/api/guilds/795767970894577684/widget.png?style=banner4)

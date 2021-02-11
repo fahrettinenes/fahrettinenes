@@ -6,8 +6,5 @@ I have an e-Commerce site where I code my own Digital Game Plugins and sell them
 [Cyber Plugins](https://cyberplugins.com/)
 
 ## Join to my plugin server
-##### [Click and join](https://discord.gg/RrhXed6CEV)
-![Discord Banner 4](https://discordapp.com/api/guilds/785185212770287616/widget.png?style=banner4)
-
-## Join to my server
-##### [Click and join](https://discord.gg/npGeCBCYHx)
+##### [Click and join](https://discord.gg/4Y2MvwKses)
+![Discord Banner 4](https://discordapp.com/api/guilds/802975830200418394/widget.png?style=banner4)

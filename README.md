@@ -1,4 +1,4 @@
-## Strazen About
+## Fahrettin About
 Hello I'm Fahrettin Enes. I will sometimes post digital game plugins and various programs to my GitHub profile. 
 
 ## Where i work

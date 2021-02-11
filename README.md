@@ -1,5 +1,5 @@
 ## Strazen About
-Hello I'm Strazen. I am 9 years old, going to primary school. I am an professional code fucker. I will sometimes post digital game plugins and various programs to my GitHub profile. 
+Hello I'm Fahrettin Enes. I am 9 years old, going to primary school. I am an professional code fucker. I will sometimes post digital game plugins and various programs to my GitHub profile. 
 
 ## Where i work
 I have an e-Commerce site where I code my own Digital Game Plugins and sell them for a cheap price;

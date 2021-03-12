@@ -1,10 +1,5 @@
-## Fahrettin About
-Hello I'm Fahrettin Enes. I will sometimes post digital game plugins and various programs to my GitHub profile. 
+## Ben kimim?
+Yani kendimi tanıtmam gerekirse, adım Fahrettin Enes. 16 yaşındayım İstanbul'da yaşıyorum, dijital oyunlarda eklenti geliştiriyorum. Biraz C# biliyorum, işte öyle kendi halimde takılıyorum. Ara sıra bir şeyler paylaşıyorum. 
 
-## Where i work
-I have an e-Commerce site where I code my own Digital Game Plugins and sell them for a cheap price;
-[Cyber Plugins](https://cyberplugins.com/)
-
-## Join to my plugin server
-##### [Click and join](https://discord.gg/4Y2MvwKses)
-![Discord Banner 4](https://discordapp.com/api/guilds/802975830200418394/widget.png?style=banner4)
+## Deneyimlerim
+C#, Python, JS, PHP, C++, Java dillerinde **deneyimlerim** oldu. Çoğunlukla C# ve Java kullandım, işte öyle geçiniyorum.

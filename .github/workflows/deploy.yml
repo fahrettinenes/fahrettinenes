@@ -41,7 +41,6 @@ jobs:
           mkdir build_native && cd build_native
           cmake .. -DCMAKE_BUILD_TYPE=Release
           make -j"$(nproc)"
-          # The engine needs this generated WAD to run.
           find . -iname 'prboomx.wad' -exec cp {} ../wasm/fs/prboomx.wad \;
           test -f ../wasm/fs/prboomx.wad
 
@@ -50,9 +49,7 @@ jobs:
           curl -fL -o freedoom.zip \
             "https://github.com/freedoom/freedoom/releases/download/v${FREEDOOM_VERSION}/freedoom-${FREEDOOM_VERSION}.zip"
           unzip -o freedoom.zip -d freedoom_extract
-          # Filenames inside wasm/fs MUST be lowercase for Dwasm.
           find freedoom_extract -iname 'freedoom1.wad' -exec cp {} dwasm/wasm/fs/freedoom1.wad \;
-          find freedoom_extract -iname 'freedoom2.wad' -exec cp {} dwasm/wasm/fs/freedoom2.wad \;
           test -f dwasm/wasm/fs/freedoom1.wad
 
       - name: Set up Emscripten
@@ -62,7 +59,6 @@ jobs:
         working-directory: dwasm
         run: |
           mkdir build && cd build
-          # GL4ES (WebGL) omitted for a smaller, more reliable build — software renderer is rock solid.
           emcmake cmake .. -DCMAKE_BUILD_TYPE=Release
           make -j"$(nproc)"
           ls -lh index.html index.js index.data index.wasm
@@ -72,7 +68,6 @@ jobs:
           mkdir -p _site/doom
           cp dwasm/build/index.html dwasm/build/index.js dwasm/build/index.data dwasm/build/index.wasm _site/doom/
           cp index.html _site/index.html
-          # Optional: if you keep extra assets next to your launcher, copy them too:
           [ -d assets ] && cp -r assets _site/assets || true
 
       - name: Upload Pages artifact

@@ -1,0 +1,92 @@
+name: Build & Deploy DOOM
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+env:
+  FREEDOOM_VERSION: "0.13.0"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install native build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            build-essential cmake git unzip \
+            libsdl2-dev libsdl2-mixer-dev libsdl2-image-dev libsdl2-net-dev \
+            zlib1g-dev
+
+      - name: Clone the Dwasm engine
+        run: git clone --depth 1 https://github.com/GMH-Code/Dwasm.git dwasm
+
+      - name: Generate prboomx.wad
+        working-directory: dwasm
+        run: |
+          mkdir build_native && cd build_native
+          cmake .. -DCMAKE_BUILD_TYPE=Release
+          make -j"$(nproc)"
+          # The engine needs this generated WAD to run.
+          find . -iname 'prboomx.wad' -exec cp {} ../wasm/fs/prboomx.wad \;
+          test -f ../wasm/fs/prboomx.wad
+
+      - name: Download the free Freedoom IWAD
+        run: |
+          curl -fL -o freedoom.zip \
+            "https://github.com/freedoom/freedoom/releases/download/v${FREEDOOM_VERSION}/freedoom-${FREEDOOM_VERSION}.zip"
+          unzip -o freedoom.zip -d freedoom_extract
+          # Filenames inside wasm/fs MUST be lowercase for Dwasm.
+          find freedoom_extract -iname 'freedoom1.wad' -exec cp {} dwasm/wasm/fs/freedoom1.wad \;
+          find freedoom_extract -iname 'freedoom2.wad' -exec cp {} dwasm/wasm/fs/freedoom2.wad \;
+          test -f dwasm/wasm/fs/freedoom1.wad
+
+      - name: Set up Emscripten
+        uses: mymindstorm/setup-emsdk@v14
+
+      - name: Build the WebAssembly engine
+        working-directory: dwasm
+        run: |
+          mkdir build && cd build
+          # GL4ES (WebGL) omitted for a smaller, more reliable build — software renderer is rock solid.
+          emcmake cmake .. -DCMAKE_BUILD_TYPE=Release
+          make -j"$(nproc)"
+          ls -lh index.html index.js index.data index.wasm
+
+      - name: Assemble the site
+        run: |
+          mkdir -p _site/doom
+          cp dwasm/build/index.html dwasm/build/index.js dwasm/build/index.data dwasm/build/index.wasm _site/doom/
+          cp index.html _site/index.html
+          # Optional: if you keep extra assets next to your launcher, copy them too:
+          [ -d assets ] && cp -r assets _site/assets || true
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deploy
+        uses: actions/deploy-pages@v4

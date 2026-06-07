@@ -455,7 +455,8 @@
         (free and open IWAD, BSD)<br />
         <div class="legal">
           Not affiliated with id Software, Bethesda, or ZeniMax. DOOM is a
-          trademark of id Software. This page ships no copyrighted game data. Only the GPL engine and the free Freedoom assets.
+          trademark of id Software. This page ships no copyrighted game data.
+          Only the GPL engine and the free Freedoom assets.
         </div>
       </footer>
     </main>
@@ -467,23 +468,45 @@
       var GAME_URL = "doom/index.html?-iwad&freedoom1.wad";
       var frame = null;
 
+      function fitCanvas() {
+        try {
+          var doc = frame.contentDocument || frame.contentWindow.document;
+          var s = doc.getElementById("dwasm-fit") || doc.createElement("style");
+          s.id = "dwasm-fit";
+          s.textContent =
+            "html,body{margin:0!important;padding:0!important;width:100%!important;" +
+            "height:100%!important;background:#000!important;overflow:hidden!important}" +
+            "canvas{position:fixed!important;inset:0!important;width:100vw!important;" +
+            "height:100vh!important;margin:0!important;border:0!important;display:block!important;" +
+            "image-rendering:pixelated!important;background:#000!important;z-index:99999!important}";
+          doc.head.appendChild(s);
+        } catch (e) {
+          /* if it ever throws, the game still runs, just smaller */
+        }
+      }
+
       function launch() {
         if (frame) return;
         frame = document.createElement("iframe");
-        frame.src = GAME_URL;
         frame.title = "DOOM";
         frame.allow = "fullscreen; autoplay; gamepad";
         frame.setAttribute("allowfullscreen", "");
+        frame.addEventListener("load", function () {
+          fitCanvas();
+          [300, 1000, 2500].forEach(function (ms) {
+            setTimeout(fitCanvas, ms);
+          });
+          setTimeout(function () {
+            try {
+              frame.contentWindow.focus();
+            } catch (e) {}
+            frame.focus();
+          }, 600);
+        });
+        frame.src = GAME_URL;
         screen.appendChild(frame);
         gate.classList.add("hidden");
         status.innerHTML = "STATUS: <b>RUNNING</b>";
-
-        setTimeout(function () {
-          try {
-            frame.contentWindow.focus();
-          } catch (e) {}
-          frame.focus();
-        }, 600);
       }
 
       document

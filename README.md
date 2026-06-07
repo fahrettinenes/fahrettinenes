@@ -1,10 +1,10 @@
 DOOM
 ====
 
-[![DOOM - press play](./assets/doom-banner.svg)](https://fahrettinenes.github.io/doom/)
+[![DOOM - press play](./assets/doom-banner.svg)](https://fahrettinenes.github.io/fahrettinenes/)
 
 Play in your browser:
-https://fahrettinenes.github.io/doom/
+https://fahrettinenes.github.io/fahrettinenes/
 
 
 About
